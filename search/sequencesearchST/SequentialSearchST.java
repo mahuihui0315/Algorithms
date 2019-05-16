@@ -5,7 +5,7 @@ package search.sequence;
  * @param <Key>
  * @param <Value>
  */
-public class SequentialSearch<Key,Value> {
+public class SequentialSearchST<Key,Value> {
     private Node first;
     private class Node{
         Key key;
