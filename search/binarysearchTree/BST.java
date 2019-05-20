@@ -74,8 +74,85 @@ public class BST<Key extends Comparable<Key>,Value> {
         return root;
     }
 
-    public Key max(){
-        return null;
+    public Key max(Key key){
+        return max(root,key).key;
     }
-    
+
+    /**
+     * 寻找最大的key并返回
+     * @param root
+     * @param key
+     * @return
+     */
+    private Node max(Node root,Key key){
+        if (root.right==null){
+            return root;
+        }
+        return max(root.right,key);
+    }
+
+    public Key min(Key key){
+        return min(root,key).key;
+    }
+
+    /**
+     * 寻找最小的key并返回
+     * @param root
+     * @param key
+     * @return
+     */
+    private Node min(Node root,Key key){
+        if (root.left==null){
+            return root;
+        }
+        return min(root.left,key);
+    }
+
+    public Key select(int k){
+        return select(root,k).key;
+    }
+
+    /**
+     * 寻找排名为k的key
+     * @param root
+     * @param k
+     * @return
+     */
+    private Node select(Node root,int k){
+        if (root==null){
+            return null;
+        }
+        int t=size(root.left);
+        if (t>k){
+            return select(root.left,k);
+        }else if (t<k){
+            return select(root.right,k-t-1);
+        }else{
+            return root;
+        }
+    }
+
+    public int rank(Key key){
+        return rank(root,key);
+    }
+
+    /**
+     * 寻找key在二叉树中的排名
+     * @param root
+     * @param key
+     * @return
+     */
+    private int rank(Node root,Key key){
+        if (root==null){
+            return 0;
+        }
+        int compare=key.compareTo(root.key);
+        if (compare<0){
+            return rank(root.left,key);
+        }else if (compare>0){
+            return rank(root.right,key)+size(root.left)+1;
+        }else{
+            return size(root.left);
+        }
+    }
 }
